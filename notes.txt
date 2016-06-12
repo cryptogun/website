@@ -1,0 +1,167 @@
+1. Installing Django
+	1 python
+	2 easy_install django
+	3 open windows powershell as admin, run "django-admin startproject abs_path_to_website_folder" #create django project.
+	4 pycharm
+
+2. Creating Our First App
+website/__init__.py
+	Tell python that this is a package. Not a normal folder.
+website/settings.py
+	Overall settings for your website.
+
+website/urls.py
+	url decorations. Table of contents for your website. or functions (log out)
+	e.g. keywords after .com/***
+
+website/wsgi.py
+	web server gateway interface. A special type of web server.
+
+3. Views
+    Each app should one thing. If you can't explain what it does in one sentence, then you need to break it up more. music app, video app, forum app...
+    "python manage.py startapp music" will create music app and music folder aside of website folder.
+    music/admin.py: ruling. delete user etc.
+    music/apps.py: configuration or settings of this app.
+    music/models.py: blueprint for your data base. It's a template of how you're going to store data for this app. e.g. title, length, size, album...
+    music/views.py: python functions. take user request, response something.
+
+4. Overview of a Basic App
+5. Views
+
+
+6. Database Setup
+    setup database.
+        You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+        Run 'python manage.py migrate' to apply them.
+    means your source code your app and all your code is not in sync with your database db.sqlite3.
+    'python manage.py migrate'
+    each app has it own table that it requires
+
+7. Creating Models
+    create model for our music app.
+    add to INSTALLED_APPS = [
+8. Activating Models
+    migraing when changing data structure(adding or deleting attributes/columns from table).
+    1. make changes to app.
+    2. "python manage.py makemigrations music"
+    check it out what that command do:
+    "python manage.py sqlmigrate music 0001" #0001 seen from previous command result prompt "************* 0001_initial.py"
+    3. again, 'python manage.py migrate'
+
+9.Database API
+    "python manage.py shell"
+    can operate to the data base
+    '''
+    from music.models import Album, Song
+    Album.objects.all()
+
+    a=Album(artist="Taylor Swift", album_title="Red", genre="Country", album_logo="https://yt3.ggpht.com/--n5ELY2uT-U/AAAAAAAAAAI/AAAAAAAAAAA/d9JvaIEpstw/s88-c-k-no-rj-c0xffffff/photo.jpg")
+    a.save()
+
+    a.artist
+    a.album_title
+    a.id
+    a.pk
+
+    b = Album()
+    b.artist = "Myth"
+    b.album_title = "Middle School"
+    b.genre = "Punk"
+    b.album_logo="https://s.ytimg.com/yts/img/avatar_48-vfllY0UTT.png"
+    b.save()
+    '''
+
+10. Filtering Database Results
+   edit Album class, add fun __str__(), return representation
+    '''cmd/bash/power shell
+    exit()
+    python manage.py shell
+    from music.models import Album, Song
+    Album.objects.all()
+
+    Album.objects.filter(id=1)
+    Album.objects.filter(artist__startswith='TaylOr')
+    '''
+11. Admin Interface
+    '''cmd/bash/power shell
+    /website>>>python manage.py createsuperuser
+    admin
+    admin@example.com
+    12345678j
+    12345678j
+    '''
+    goto localhost:8000/admin
+    in order to edit/manage song/album on admin page:
+    edit music/admin.py #admin register
+    refresh page.
+12. Writing Another View
+    add to views.py, add pattens to urls.py, refresh.
+13. Connecting to the Database
+    http:/music/
+    all_albums = Album.objects.all()
+    return HttpResponse(html)
+14. Templates (shopping template, blog template)(for html py separation)
+    delete html code from py.
+    edit template index.html, from views.py pass variable to it. in template html use { % if %}  {{ variable }} { % endif %} to execute python code.
+
+15. Render Template Shortcut
+    get_template, render, httpresponse > render
+    ###from django.template import loader #
+    from django.shortcuts import render
+
+16. Raising a 404 HTTP Error
+    try except notexist raise Http404
+
+17. Adding Songs to our Database
+    prompt add songs to Song db.
+    '''cmd
+    album1 = get(pk=)
+    song=Song()
+    song.album=album1
+    song.file_type='mp3'
+    song.song_title='I hate my boyfriend'
+    song.save()
+    see change on admin site.
+
+18. Related Objects Set
+    Another way to add a song. By Album
+    #Song outer key is Album.
+    #Song lower case under score set: see all songs
+    album1.song_set.all()
+    #create song
+    album1.song_set.create(file_type = "mp3", song_title = "I love bacon")
+    album1.song_set.create(file_type = "mp3", song_title = "Ice cream")
+
+19. Designing the Details Template
+
+20. Removing Hardcoded URLs
+    url(r'^()/$', views.detail, name='detail')
+    <a href="{% url 'detail' album.id %}">
+
+21. Namespace and HTTP 404 Shortcut
+
+22. Simple Form
+23. Adding Forms to the Template
+24. Favorite View Function
+25. Bootstrap and Static Files
+26. Navigation Menu
+27. Finishing the Navigation Menu
+28. Creating a Base Template
+29. Generic Views
+    list and item details.
+30. Model Forms
+31. ModelForm and CreateView
+32. UpdateView and DeleteView
+33. Upload Files
+34. User Registration
+35. User Model and Creating Accounts
+36. User Authentication and Login
+37. REST API Introduction
+    pip install djangorestframework
+    start new project
+    python manage.py startapp companies
+
+38. REST API Models
+39. REST API Serializer JSON
+40. REST API View Request and Response
+	rest_framework works with Django (1.7+, 1.8, 1.9) not 1.10 yet.

@@ -1,0 +1,11 @@
+body{
+    background: white url("main_background.png")
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+h1{
+    text-align: center;
+}
